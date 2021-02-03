@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tinderclone/utils/fonts.dart';
 
@@ -69,19 +70,26 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Positioned(
                 top: 130,
-                child: Container(
-                  width: MediaQuery.of(context).size.width - 100,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: LinearGradient(
-                        colors: [Color(0xFFFB9245), Color(0xFFF54E68)],
-                      )),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: Center(
-                      child: Text(
-                        "Login",
-                        style: mystyle(18, Colors.white, FontWeight.bold),
+                child: InkWell(
+                  onTap: () {
+                    FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: emailcontroller.text,
+                        password: passwordcontroller.text);
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 100,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                          colors: [Color(0xFFFB9245), Color(0xFFF54E68)],
+                        )),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: Center(
+                        child: Text(
+                          "Login",
+                          style: mystyle(18, Colors.white, FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),
