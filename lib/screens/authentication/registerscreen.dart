@@ -1,8 +1,12 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tinderclone/utils/fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:tinderclone/utils/variables.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -16,6 +20,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController usernamecontroller = TextEditingController();
   TextEditingController biocontroller = TextEditingController();
+
+  uploadimage() async {
+    UploadTask storageUploadtask =
+        imagesbucket.child(usernamecontroller.text).putFile(imagepath);
+    TaskSnapshot storageUploadsnapshot =
+        await storageUploadtask.whenComplete(() {});
+    String downloadurl = await storageUploadsnapshot.ref.getDownloadURL();
+    return downloadurl;
+  }
+
+  createuser() {
+    try {
+      FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailcontroller.text, password: passwordcontroller.text)
+          .then((signeduser) async {
+        String downloadurl = await uploadimage();
+        String url =
+            "https://fluttertinderclone.000webhostapp.com/createuser.php";
+        Map data = {
+          "name": usernamecontroller.text,
+          "email": emailcontroller.text,
+          "gender": ismale == true ? "Male" : "Female",
+          "bio": biocontroller.text,
+          "password": passwordcontroller.text,
+          "profilepic": downloadurl,
+          "uid": signeduser.user.uid
+        };
+        var post = await http.post(url, body: data);
+        print(post);
+      });
+    } catch (e) {}
+  }
 
   pickimage(ImageSource source) async {
     Navigator.pop(context);
@@ -205,19 +242,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               Positioned(
                 top: 380,
-                child: Container(
-                  width: MediaQuery.of(context).size.width - 100,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: LinearGradient(
-                        colors: [Color(0xFFFB9245), Color(0xFFF54E68)],
-                      )),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: Center(
-                      child: Text(
-                        "Register",
-                        style: mystyle(18, Colors.white, FontWeight.bold),
+                child: InkWell(
+                  onTap: () => createuser(),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 100,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                          colors: [Color(0xFFFB9245), Color(0xFFF54E68)],
+                        )),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: Center(
+                        child: Text(
+                          "Register",
+                          style: mystyle(18, Colors.white, FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),
