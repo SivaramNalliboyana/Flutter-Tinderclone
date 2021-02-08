@@ -38,7 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           .then((signeduser) async {
         String downloadurl = await uploadimage();
         String url =
-            "https://fluttertinderclone.000webhostapp.com/createuser.php";
+            "Your api url";
         Map data = {
           "name": usernamecontroller.text,
           "email": emailcontroller.text,
