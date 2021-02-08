@@ -15,10 +15,10 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [Color(0xFFFB9245), Color(0xFFF54E68)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter),
+          gradient: LinearGradient(colors: [
+            Color(0xFFFB9245),
+            Color(0xFFF54E68),
+          ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
         ),
         child: Center(
           child: SingleChildScrollView(

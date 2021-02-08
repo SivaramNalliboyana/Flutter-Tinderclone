@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tinderclone/screens/authentication/authenticationscreen.dart';
-import 'package:tinderclone/screens/bottomnavbarscreen.dart';
+import 'package:tinderclone/screens/home/homescreen.dart';
 
 class NavigationPage extends StatefulWidget {
   @override
@@ -20,7 +20,9 @@ class _NavigationPageState extends State<NavigationPage> {
           loggedin = true;
         });
       } else {
-        loggedin = false;
+        setState(() {
+          loggedin = false;
+        });
       }
     });
   }
@@ -28,7 +30,7 @@ class _NavigationPageState extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: loggedin ? BottomNavigationBarScreen() : AuthenticationScreen(),
+      body: loggedin ? HomeScreen() : AuthenticationScreen(),
     );
   }
 }
