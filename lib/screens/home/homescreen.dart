@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:http/http.dart';
+import 'package:tinderclone/screens/profilescreen.dart';
 import 'package:tinderclone/utils/fonts.dart';
 import 'package:http/http.dart' as http;
 
@@ -182,7 +183,8 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.black,
           ),
           iconSize: 32,
-          onPressed: () {},
+          onPressed: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ProfileScreen())),
         ),
         title: Image(
           width: 45,
@@ -225,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Image(
                               width: 600,
                               height: 500,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                               image: NetworkImage(
                                   snapshot.data[index]['profilepic']),
                             ),
