@@ -29,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   getuserdata() async {
-    String apiurl = 'https://fluttertinderclone.000webhostapp.com/getdata.php';
+    String apiurl = "<Your api url>";
     Map sql = {
       'sql':
           'SELECT * FROM users WHERE uid="${FirebaseAuth.instance.currentUser.uid}"'
@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   getlikes() async {
-    String apiurl = 'https://fluttertinderclone.000webhostapp.com/getdata.php';
+    String apiurl = "<Your api url>";
     Map sql = {
       'sql':
           'SELECT * FROM likes WHERE reciever="${FirebaseAuth.instance.currentUser.uid}"'
@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   updateprofile() async {
-    String url = 'https://fluttertinderclone.000webhostapp.com/edituser.php';
+    String url = "<Your api url>";
     String userid = FirebaseAuth.instance.currentUser.uid;
     // only name
     if (usernamecontroller.text != '' && imagepath == null) {
