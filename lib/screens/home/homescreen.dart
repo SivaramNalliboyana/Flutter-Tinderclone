@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getusers() async {
     print("Getting users");
-    String userurl = "https://fluttertinderclone.000webhostapp.com/getdata.php";
+    String userurl = "<Your api url>";
     Map sql = {
       'sql':
           'SELECT * FROM users WHERE uid="${FirebaseAuth.instance.currentUser.uid}"'
@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getcurrentuserdata() async {
     print("Getting currengt user");
-    String userurl = "https://fluttertinderclone.000webhostapp.com/getdata.php";
+    String userurl = "<Your api url>";
     Map sql = {
       'sql':
           'SELECT * FROM users WHERE uid="${FirebaseAuth.instance.currentUser.uid}"'
@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
   likeuser(String uid, String name, String recieverprofilepic) async {
     print("Getting likes");
     String currentuserid = FirebaseAuth.instance.currentUser.uid;
-    String api = "https://fluttertinderclone.000webhostapp.com/getdata.php";
+    String api = "<Your api url>";
     Map getlikessql = {
       'sql':
           'SELECT * FROM likes WHERE liker="$currentuserid" AND reciever="$uid"'
